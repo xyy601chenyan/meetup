@@ -1,0 +1,36 @@
+<div class="col-md-12">
+  <div class="group">
+    <%= link_to("创建 meetup",new_group_path, class: "btn btn-primary pull-right",style:"margin-bottom:20px;") %>
+
+  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <td class="text-center">主题</td>
+        <td class="text-center">内容</td>
+        <td class="text-center">地点</td>
+        <td class="text-center">参与人数</td>
+        <td class="text-center">组织者</td>
+        <td class="text-center">选项</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @groups.each do |group| %>
+      <tr>
+        <td class="text-center"><%=link_to(group.title, group_path(group)) %></td>
+        <td class="text-center"><%= render_group_description(group) %></td>
+        <td class="text-center"><%= group.city %></td>
+        <td class="text-center">12</td>
+        <!-- <td><%#= group.participate_users.count %></td> -->
+        <!-- <td><%#= group.user %></td> -->
+        <td class="text-center">xyy</td>
+        <td class="text-center"><%= link_to("编辑",edit_group_path(group),class: "btn btn-sm btn-default") %>
+            <%= link_to("删除",group_path(group), class:"btn btn-sm btn-default",method: :delete, data: {comfirm: "Are you sure?"}) %>
+          </td>
+
+
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

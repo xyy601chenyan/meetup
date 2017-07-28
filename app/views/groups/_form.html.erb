@@ -1,0 +1,7 @@
+<br>
+<%= simple_form_for @group do |f| %>
+<%= f.input :title, label: "主题" %>
+<%= f.input :description, label:"活动内容" %>
+<%= f.input :city, label:"地点" %>
+<%= f.submit "确认", class:"btn btn-sm btn-primary",disable_with: "Submitting..." %>
+<% end %>
