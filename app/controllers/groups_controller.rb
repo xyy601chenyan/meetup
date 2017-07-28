@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
   before_action :authenticate_user!, only:[:new,:create,:edit,:update,:destroy]
   before_action :check_permission, only:[:edit,:update,:destroy]
   def index
-    @groups = Group.all.order("created_at DESC")
+    @groups = Group.all.order("created_at DESC").paginate(page: params[:page], per_page: 12)
     #Group.find_in_batches( :batch_size => 100) do |groups|
     #  if groups.present?
     #  @groups = groups
@@ -15,7 +15,7 @@ end
 
  def show
    @group = Group.find(params[:id])
-   @comments = @group.comments.recent
+   @comments = @group.comments.recent.paginate(page: params[:page], per_page: 5)
    @comment = Comment.new
  end
 
