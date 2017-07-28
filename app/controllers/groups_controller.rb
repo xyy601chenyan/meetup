@@ -15,6 +15,8 @@ end
 
  def show
    @group = Group.find(params[:id])
+   @comments = @group.comments.recent
+   @comment = Comment.new
  end
 
   def new
@@ -26,7 +28,7 @@ end
    @group = Group.new(group_params)
    @group.user = current_user
    if @group.save
-     redirect_to @group
+     redirect_to root_path
    else
      render :new
    end

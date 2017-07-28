@@ -16,3 +16,26 @@
 
 @import "bootstrap";
 @import "bootstrap-sprockets";
+
+.form-area{
+padding: 10px 0 35px 0px;
+height: 100px;
+}
+
+.navbar{
+
+  width:100%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+html, body  { height: 100%; }
+      .main-container { min-height: 100%; position: relative;}
+      .main-content { height: 1200px; padding-bottom: 70px;}
+      footer {
+          height: 70px;
+          background-color: #4d4d4d;
+          width: 100%;
+          position: absolute; //关键4
+          bottom: 0;
+      }
