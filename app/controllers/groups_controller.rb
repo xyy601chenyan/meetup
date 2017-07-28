@@ -1,15 +1,16 @@
 class GroupsController < ApplicationController
   before_action :authenticate_user!, only:[:new,:create,:edit,:update,:destroy]
-
+  before_action :check_permission, only:[:edit,:update,:destroy]
   def index
-    #@groups = Group.all
-    Group.find_in_batches( :batch_size => 100) do |groups|
-      if groups.present?
-      @groups = groups
-      @groups = @groups.sort_by(&:"created_at")
+    @groups = Group.all.order("created_at DESC")
+    #Group.find_in_batches( :batch_size => 100) do |groups|
+    #  if groups.present?
+    #  @groups = groups
+    #  @groups = @groups.sort_by(&:"created_at").reverse
 
-    end
-  end
+
+    #end
+  #end
 end
 
  def show
@@ -23,6 +24,7 @@ end
 
  def create
    @group = Group.new(group_params)
+   @group.user = current_user
    if @group.save
      redirect_to @group
    else
@@ -31,11 +33,11 @@ end
  end
 
  def edit
-   @group = Group.find(params[:id])
+
  end
 
   def update
-    @group = Group.find(params[:id])
+
     if @group.update(group_params)
       redirect_to groups_path, notice: "Update Success"
     else
@@ -44,12 +46,20 @@ end
   end
 
   def destroy
-    @group = Group.find(params[:id])
+
     @group.destroy
     redirect_to groups_path
   end
 
+  private
   def group_params
     params.require(:group).permit(:title,:description,:city)
   end
-end
+
+  def check_permission
+    @group = Group.find(params[:id])
+    if current_user != @group.user
+     redirect_to root_path, alert:"您没有操作权限"
+   end
+ end
+ end

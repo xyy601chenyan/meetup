@@ -23,10 +23,16 @@
         <td class="text-center">12</td>
         <!-- <td><%#= group.participate_users.count %></td> -->
         <!-- <td><%#= group.user %></td> -->
-        <td class="text-center">xyy</td>
+        <td class="text-center"><%= group.user.user_name %></td>
+        <% if current_user && group.user == current_user %>
         <td class="text-center"><%= link_to("编辑",edit_group_path(group),class: "btn btn-sm btn-default") %>
-            <%= link_to("删除",group_path(group), class:"btn btn-sm btn-default",method: :delete, data: {comfirm: "Are you sure?"}) %>
+            <%= link_to("取消",group_path(group), class:"btn btn-sm btn-default",method: :delete, data: {confirm: "确定取消该meetup?"}) %>
           </td>
+          <%else  %>
+          <td>
+
+          </td>
+          <%end %>
 
 
       </tr>
