@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+<div class="main-container">
+  <div class="main-content">
   <head>
     <title>Meetup</title>
     <%= csrf_meta_tags %>
@@ -9,6 +11,17 @@
   </head>
 
   <body>
+
+    <div class="container-fluid">
+    <%= render "common/navbar" %>
+    <%= render "common/flashes" %>
     <%= yield %>
+
+    </div>
+
+
   </body>
+</div>
+  <%= render "common/footer" %>
+</div>
 </html>

@@ -1,0 +1,46 @@
+
+  <div class="group" style="margin-top:75px;">
+    <!-- <%# if current_user && @group.user == current_user %> -->
+    <!-- <%#= link_to("编辑",edit_group_path(@group),class:"btn btn-primary pull-right") %> -->
+    <!-- <%#end %> -->
+
+  <h3>主题: <%= @group.title %></h3>
+  活动内容: <p><%= render_group_description(@group) %></p>
+  </div>
+  <div class="col-md-6" style="margin-top:50px;">
+
+    <%= simple_form_for [@group,@comment] do |f| %>
+     <p>
+       <%= f.input :review,label:"添加评论",input_html: { class: "form-area"},placeholder:"请写下你的评论"%>
+     </p>
+     <p>
+       <%= f.submit "发表",class:"btn btn-sm btn-primary" %>
+     </p>
+       <% end %>
+       <hr />
+
+        <% if @group.comments.empty? %>
+        <h3>0 条评论<h3>
+          <hr>
+          <% else %>
+       <h3><%= @group.comments_count %>条评论</h3>
+       <hr>
+       <% @floor =1 %>
+
+       <% @comments.each do |comment| %>
+          <%= @floor %>楼
+       <div class="comment clearfix">
+       <%= simple_format(comment.review) %>
+       <%= comment.user.user_name %>
+       发表于<%=  time_ago_in_words(comment.created_at) %> 前
+       <hr />
+       </div>
+        <% @floor = @floor + 1 %>
+       <% end %>
+       <% end %>
+
+     <!-- <%#= render @group.comments %> -->
+  </div>
+  <div class="text-center col-md-12">
+<%= will_paginate @comments, renderer: BootstrapPagination::Rails %>
+  </div>
